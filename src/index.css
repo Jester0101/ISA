@@ -1,0 +1,466 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cinzel:wght@400;500;600&family=Special+Elite&family=Tangerine:wght@400;700&family=Pinyon+Script&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #0d0a07;
+  color: #e8d9b8;
+  font-family: 'EB Garamond', Georgia, serif;
+  overflow: hidden;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.paper-bg {
+  background-image: url('/images/paper.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.7) 100%);
+}
+
+.grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+}
+
+.choice-btn {
+  transition: all 0.3s ease;
+}
+.choice-btn:hover {
+  background: rgba(168, 133, 74, 0.15);
+  transform: translateX(4px);
+}
+.choice-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.choice-btn:disabled:hover {
+  background: transparent;
+  transform: none;
+}
+
+.scene-enter {
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(40px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.typewriter-cursor::after {
+  content: '▎';
+  animation: blink 0.8s steps(2) infinite;
+  margin-left: 2px;
+  opacity: 0.6;
+}
+
+@keyframes blink {
+  to { opacity: 0; }
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(168, 133, 74, 0.3); border-radius: 3px; }
+
+/* ============================================
+   PARCHMENT PAGE — book-style typography
+   ============================================ */
+
+.parchment-page {
+  position: relative;
+  background: rgba(15, 10, 5, 0.62);
+  backdrop-filter: blur(8px) saturate(1.15);
+  -webkit-backdrop-filter: blur(8px) saturate(1.15);
+  color: #ecd9a8;
+  padding: 36px 28px 48px;
+  border-radius: 4px;
+  border: 1px solid rgba(168, 133, 74, 0.32);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 240, 200, 0.06);
+  font-family: 'EB Garamond', Georgia, serif;
+  line-height: 1.65;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .parchment-page {
+    padding: 56px 72px 64px;
+  }
+}
+
+.parchment-header {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #c4a070;
+}
+
+.parchment-ornament {
+  display: block;
+  width: 80%;
+  max-width: 240px;
+  height: 8px;
+  margin: 0 auto;
+  color: #c4a070;
+  opacity: 0.55;
+}
+
+.parchment-chapter {
+  font-family: 'Cinzel', 'EB Garamond', serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  margin: 12px 0;
+  color: #d4b98a;
+}
+
+@media (min-width: 768px) {
+  .parchment-chapter {
+    font-size: 14px;
+  }
+}
+
+.parchment-body {
+  font-size: 17px;
+  line-height: 1.75;
+  color: #ecd9a8;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+@media (min-width: 768px) {
+  .parchment-body {
+    font-size: 19px;
+    line-height: 1.8;
+  }
+}
+
+.parchment-text p {
+  margin: 0 0 1em 0;
+  text-indent: 0;
+}
+
+.parchment-text p + p {
+  text-indent: 2em;
+}
+
+/* Drop cap on first paragraph */
+.parchment-text p.first-paragraph::first-letter {
+  font-family: 'Cinzel', 'EB Garamond', serif;
+  font-weight: 600;
+  float: left;
+  font-size: 3.4em;
+  line-height: 0.85;
+  padding: 6px 10px 0 0;
+  color: #e0b870;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+@media (min-width: 768px) {
+  .parchment-text p.first-paragraph::first-letter {
+    font-size: 4.8em;
+    padding: 8px 14px 0 0;
+  }
+}
+
+.parchment-text p.first-paragraph {
+  text-indent: 0;
+}
+
+.parchment-text em {
+  font-style: italic;
+  color: #f5e3b0;
+}
+
+.parchment-text .dialogue {
+  font-style: italic;
+  color: #f5e3b0;
+}
+
+.parchment-divider {
+  text-align: center;
+  margin: 36px 0 28px;
+  color: #c4a070;
+  opacity: 0.5;
+  letter-spacing: 0.8em;
+  font-size: 14px;
+}
+
+.parchment-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.parchment-choice {
+  position: relative;
+  width: 100%;
+  text-align: left;
+  padding: 14px 18px;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 17px;
+  font-style: italic;
+  color: #ecd9a8;
+  background: rgba(15, 10, 5, 0.35);
+  border: 1px solid rgba(196, 160, 112, 0.25);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+@media (min-width: 768px) {
+  .parchment-choice {
+    font-size: 18px;
+    padding: 14px 22px;
+  }
+}
+
+.parchment-choice:hover:not(:disabled) {
+  background: rgba(196, 160, 112, 0.12);
+  border-color: rgba(196, 160, 112, 0.55);
+  transform: translateX(3px);
+}
+
+.parchment-choice:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  font-style: normal;
+}
+
+.parchment-choice:disabled:hover {
+  background: rgba(15, 10, 5, 0.35);
+  border-color: rgba(196, 160, 112, 0.25);
+  transform: none;
+}
+
+.choice-lock-hint {
+  display: block;
+  margin-top: 4px;
+  margin-left: 26px;
+  font-style: italic;
+  color: #a87f55;
+  font-size: 0.8em;
+  line-height: 1.4;
+}
+
+.parchment-choice .choice-marker {
+  display: inline-block;
+  margin-right: 10px;
+  color: #c4a070;
+  font-style: normal;
+}
+
+.parchment-byline {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: #c4a070;
+  opacity: 0.6;
+  text-align: center;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .parchment-byline {
+    font-size: 12px;
+  }
+}
+
+.parchment-signature {
+  text-align: right;
+  margin-top: 32px;
+  margin-bottom: 12px;
+  padding-right: 20px;
+}
+
+.signature-script {
+  font-family: 'Pinyon Script', 'Tangerine', cursive;
+  font-size: 38px;
+  color: #e0b870;
+  letter-spacing: 0.02em;
+  display: inline-block;
+  transform: rotate(-3deg);
+  opacity: 0.9;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+@media (min-width: 768px) {
+  .signature-script {
+    font-size: 46px;
+  }
+}
+
+.parchment-ending {
+  margin-top: 24px;
+  padding: 20px 18px;
+  text-align: center;
+  border-top: 1px solid rgba(196, 160, 112, 0.25);
+  border-bottom: 1px solid rgba(196, 160, 112, 0.25);
+}
+
+.parchment-ending-triumph {
+  background: rgba(196, 160, 60, 0.1);
+}
+
+.parchment-ending-neutral {
+  background: rgba(196, 160, 112, 0.06);
+}
+
+.parchment-ending-failure {
+  background: rgba(140, 30, 30, 0.15);
+}
+
+.ending-headline {
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #e8d9a8;
+  margin: 0 0 8px;
+}
+
+.parchment-ending-triumph .ending-headline {
+  color: #f0c878;
+}
+
+.parchment-ending-failure .ending-headline {
+  color: #ec8888;
+}
+
+.ending-subtitle {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: #d4b98a;
+  margin: 0;
+  opacity: 0.9;
+}
+
+@media (min-width: 768px) {
+  .ending-headline {
+    font-size: 20px;
+  }
+  .ending-subtitle {
+    font-size: 17px;
+  }
+}
+
+/* Page-flip 3D effect */
+.page-perspective {
+  perspective: 1800px;
+}
+
+/* Photo banner inside parchment page */
+.parchment-banner {
+  position: relative;
+  width: calc(100% + 72px);
+  margin: -48px -36px 24px -36px;
+  height: 220px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(110, 70, 30, 0.25);
+}
+
+@media (min-width: 768px) {
+  .parchment-banner {
+    width: calc(100% + 192px);
+    margin: -72px -96px 32px -96px;
+    height: 300px;
+  }
+}
+
+.parchment-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(0.18) contrast(0.95) brightness(0.9);
+}
+
+.parchment-banner-fade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, transparent 40%, rgba(233, 216, 179, 0.55) 80%, rgba(233, 216, 179, 0.95) 100%),
+    linear-gradient(to right, rgba(233, 216, 179, 0.25), transparent 15%, transparent 85%, rgba(233, 216, 179, 0.25));
+  pointer-events: none;
+}
+
+/* Progressive paragraph reveal — top to bottom, no shift */
+.parchment-paragraph {
+  opacity: 0;
+  animation-name: paraReveal;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes paraReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Signature animates in after all paragraphs */
+.parchment-signature {
+  opacity: 0;
+  animation: paraReveal 0.8s ease-out forwards;
+}
+
+.parchment-skip-hint {
+  position: absolute;
+  bottom: 8px;
+  right: 14px;
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 11px;
+  color: #6b3f15;
+  opacity: 0.45;
+  pointer-events: none;
+  letter-spacing: 0.05em;
+}

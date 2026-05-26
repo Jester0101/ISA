@@ -56,16 +56,41 @@ function checkAutoTriggers(state: { actions: number; flags: Set<string>; items: 
   if (state.currentSceneId !== 'investigation_hub') return null;
   const a = state.actions;
   const f = state.flags;
+  const i = state.items;
+  const has = (k: string) => f.has(k) || i.has(k);
 
-  if (f.has('edmund_alerted') && f.has('refused_bribe') && a >= 13 && !f.has('triggered_ending_murdered')) {
+  // Compute evidence count — needed for evidence-gated triggers
+  let evidence = 0;
+  if (has('wire_hook') && has('wet_glove')) evidence++;
+  if (has('bottle_normal') && has('fiber_latch')) evidence++;
+  if (has('wet_sill') || has('footprint')) evidence++;
+  if (has('doctor_sample')) evidence++;
+  if (has('diary_torn') && has('debt_note')) evidence++;
+  if (has('clara_witnessed')) evidence++;
+  if (has('thomas_broke')) evidence++;
+  if (has('agnes_saw_thomas')) evidence++;
+
+  // Hard deadline — 6 PM (action 18 at 35 min/action from 7:30 AM)
+  if (a >= 18 && !f.has('triggered_ending_too_late')) return 'ending_too_late';
+  // Edmund silences Robert after the bribe is refused — needs alerted + refused + late hour
+  if (f.has('edmund_alerted') && f.has('refused_bribe') && a >= 15 && !f.has('triggered_ending_murdered')) {
     return 'ending_murdered';
   }
-  if (a >= 15 && !f.has('triggered_ending_too_late')) return 'ending_too_late';
-  if (a >= 14 && !f.has('thomas_broke') && !f.has('thomas_dead') && !f.has('triggered_thomas_dies')) return 'thomas_dies';
-  if (f.has('edmund_alerted') && a >= 10 && !f.has('triggered_edmund_threatens')) return 'edmund_threatens';
-  if (a >= 12 && !f.has('searched_edmund_room') && !f.has('triggered_event_edmund_returns')) return 'event_edmund_returns';
-  if (a >= 11 && !f.has('clara_closed') && !f.has('triggered_event_clara_in_garden')) return 'event_clara_in_garden';
+  // Thomas dies — but with enough time afterward to still reach the drawing room
+  if (a >= 16 && !f.has('thomas_broke') && !f.has('thomas_dead') && !f.has('triggered_thomas_dies')) return 'thomas_dies';
+  // Edmund corners Robert with a bribe — only if Robert has real evidence against him
+  if (f.has('edmund_alerted') && evidence >= 2 && a >= 11 && !f.has('triggered_edmund_threatens')) return 'edmund_threatens';
+  // Edmund returns and locks his chamber
+  if (a >= 14 && !f.has('searched_edmund_room') && !f.has('triggered_event_edmund_returns')) return 'event_edmund_returns';
+  // Rain stops, the lane is opening — afternoon turn
+  if (a >= 13 && !f.has('triggered_time_warning')) return 'time_warning';
+  // Clara at the fountain
+  if (a >= 12 && !f.has('clara_closed') && !f.has('triggered_event_clara_in_garden')) return 'event_clara_in_garden';
+  // Edmund catches Robert leaving his chamber — quiet warning before he goes hostile
+  if (a >= 8 && f.has('searched_edmund_room') && !f.has('edmund_alerted') && !f.has('triggered_event_edmund_in_corridor')) return 'event_edmund_in_corridor';
+  // Crowe slips out to his surgery
   if (a >= 9 && !f.has('triggered_event_crowe_leaves')) return 'event_crowe_leaves';
+  // Body is carried out
   if (a >= 7 && !f.has('triggered_event_body_moved')) return 'event_body_moved';
   return null;
 }
@@ -174,8 +199,13 @@ export const useGame = create<GameStore>((set) => ({
       }
 
       // Mark events / one-time triggers
-      if (nextId.startsWith('event_') || ['edmund_threatens', 'thomas_dies', 'ending_too_late', 'ending_murdered'].includes(nextId)) {
+      if (nextId.startsWith('event_') || ['edmund_threatens', 'thomas_dies', 'ending_too_late', 'ending_murdered', 'time_warning'].includes(nextId)) {
         newFlags.add(`triggered_${nextId}`);
+      }
+
+      // Walking away from Edmund's bribe attempt commits Robert to the case
+      if (state.currentSceneId === 'edmund_threatens' && originalIntent === 'investigation_hub') {
+        newFlags.add('refused_bribe');
       }
 
       // Track unlocked endings

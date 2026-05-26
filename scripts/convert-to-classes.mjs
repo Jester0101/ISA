@@ -188,7 +188,15 @@ const HUB_DYNAMIC_TEXT = `
       // a === 13 (~15:05)
       "A horse came down the avenue and turned off at the home farm before it reached the porch — not the parish gig, not yet. I watched it go. The yellow had spread across the moor in the way March light spreads after a long storm, with a kind of forgiveness that had no business in this morning.",
       // a === 14 (~15:40)
-      "The drawing room had been opened and aired. A maid was setting chairs. Mrs Cope passed the door once and looked in and went on without speaking. The house was preparing itself for the half past four, in the small careful way it prepared for any event that mattered. There were perhaps two hours of the morning left in me.",
+      "The drawing room had been opened and aired. A maid was setting chairs. Mrs Cope passed the door once and looked in and went on without speaking. The house was preparing itself for the half past four, in the small careful way it prepared for any event that mattered. There were perhaps two hours of the afternoon left in me.",
+      // a === 15 (~16:15)
+      "The gallery clock struck the quarter past, and the sound carried further than usual, as it does in a house that has stopped its small noises to listen. Through the long window I could see the avenue, empty still, and the wet gleam where the gravel had begun to dry. Somewhere not far enough away the constables were on the road.",
+      // a === 16 (~16:50)
+      "Below stairs the kitchen had gone quiet. A pan was set down once, set down again, and after that nothing. The household had begun, without saying so, to wait. I had not many turns of the gallery clock left, and what I had left I would have to use.",
+      // a === 17 (~17:25)
+      "The light at the western window had gone the deep yellow it goes for the last half hour before evening, when even bad weather is forgiven. A horse came down the lane and turned in at the porch — slower than a gentleman's, steadier than a labourer's. The gig had not yet stopped. It was the kind of arrival that has, in my experience, only one shape.",
+      // a === 18 (~18:00)
+      "Six o'clock. The gallery clock struck it once, twice, then went on with the long ones a clock makes for the hour, and I counted them with the careful attention of a man whose case had run out of room. The constables were at the door. Whatever I had not done by now would not be done by me.",
     ];
     let vignette = vignettes[Math.min(a - 1, vignettes.length - 1)];
     if (!vignette) vignette = "I came back to the gallery and let it have me for a moment before I moved again.";

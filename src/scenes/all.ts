@@ -1289,11 +1289,11 @@ I looked from Sir Henry to Edmund, from Edmund to Clara, and then to the woman s
 
 I made my choice.`,
   choices: [
-    { label: 'Edmund Harrow', next: () => accuse_edmund, available: (s) => s.evidenceCount() >= 2, lockHint: 'Not enough on him to make the case.' },
-    { label: 'Clara Harrow', next: () => accuse_clara, available: (s) => s.has('love_letter'), lockHint: 'I have nothing to lay at her door.' },
-    { label: 'Miss Blake', next: () => accuse_agnes, available: (s) => s.has('cold_letter'), lockHint: 'I have nothing to lay at her door.' },
-    { label: 'Sir Henry', next: () => accuse_henry, available: (s) => s.has('henry_admits_doubt'), lockHint: 'There is no case to put to the master of the house.' },
-    { label: 'Doctor Crowe', next: () => accuse_doctor, available: (s) => s.has('doctor_pressured_by_edmund'), lockHint: 'I know nothing that would hold against the doctor.' },
+    { label: 'Edmund Harrow', next: () => accuse_edmund },
+    { label: 'Clara Harrow', next: () => accuse_clara },
+    { label: 'Miss Blake', next: () => accuse_agnes },
+    { label: 'Sir Henry', next: () => accuse_henry },
+    { label: 'Doctor Crowe', next: () => accuse_doctor },
     { label: 'Give no name', next: () => ending_silence },
   ],
 });
@@ -1386,7 +1386,15 @@ dynamicText: (s) => {
       // a === 13 (~15:05)
       "A horse came down the avenue and turned off at the home farm before it reached the porch — not the parish gig, not yet. I watched it go. The yellow had spread across the moor in the way March light spreads after a long storm, with a kind of forgiveness that had no business in this morning.",
       // a === 14 (~15:40)
-      "The drawing room had been opened and aired. A maid was setting chairs. Mrs Cope passed the door once and looked in and went on without speaking. The house was preparing itself for the half past four, in the small careful way it prepared for any event that mattered. There were perhaps two hours of the morning left in me.",
+      "The drawing room had been opened and aired. A maid was setting chairs. Mrs Cope passed the door once and looked in and went on without speaking. The house was preparing itself for the half past four, in the small careful way it prepared for any event that mattered. There were perhaps two hours of the afternoon left in me.",
+      // a === 15 (~16:15)
+      "The gallery clock struck the quarter past, and the sound carried further than usual, as it does in a house that has stopped its small noises to listen. Through the long window I could see the avenue, empty still, and the wet gleam where the gravel had begun to dry. Somewhere not far enough away the constables were on the road.",
+      // a === 16 (~16:50)
+      "Below stairs the kitchen had gone quiet. A pan was set down once, set down again, and after that nothing. The household had begun, without saying so, to wait. I had not many turns of the gallery clock left, and what I had left I would have to use.",
+      // a === 17 (~17:25)
+      "The light at the western window had gone the deep yellow it goes for the last half hour before evening, when even bad weather is forgiven. A horse came down the lane and turned in at the porch — slower than a gentleman's, steadier than a labourer's. The gig had not yet stopped. It was the kind of arrival that has, in my experience, only one shape.",
+      // a === 18 (~18:00)
+      "Six o'clock. The gallery clock struck it once, twice, then went on with the long ones a clock makes for the hour, and I counted them with the careful attention of a man whose case had run out of room. The constables were at the door. Whatever I had not done by now would not be done by me.",
     ];
     let vignette = vignettes[Math.min(a - 1, vignettes.length - 1)];
     if (!vignette) vignette = "I came back to the gallery and let it have me for a moment before I moved again.";
@@ -1421,24 +1429,24 @@ dynamicText: (s) => {
     { label: 'Edmund — Search Edmund\'s chamber', next: () => edmund_room, available: (s) => (!s.has('edmund_alerted') && s.actions < 12) },
     { label: 'Go below to the servants\' hall', next: () => servants_hall },
     { label: 'Walk down to the inner courtyard', next: () => courtyard, available: (s) => (s.has('seen_silhouette') || s.has('wet_sill')) },
-    { label: 'Sir Henry — in the library', next: () => talk_henry_1, available: (s) => s.actions < 9 },
-    { label: 'Sir Henry — sit at luncheon with him in the dining room', next: () => talk_henry_dining, available: (s) => (s.actions >= 9 && s.actions <= 12) },
+    { label: 'Sir Henry — in the library', next: () => talk_henry_1, available: (s) => s.actions < 10 },
+    { label: 'Sir Henry — sit at luncheon with him in the dining room', next: () => talk_henry_dining, available: (s) => (s.actions >= 10 && s.actions <= 14) },
     { label: 'Sir Henry — return with the evidence', next: () => talk_henry_2, available: (s) => (s.has('debt_note') && (s.has('wire_hook') || s.has('diary_torn'))) },
-    { label: 'Edmund — in the smoking room', next: () => talk_edmund_1, available: (s) => s.actions < 12 },
-    { label: 'Edmund — Set the evidence before him', next: () => talk_edmund_2, available: (s) => (s.has('knows_method') && s.has('knows_motive') && s.actions < 12) },
-    { label: 'Edmund — Knock at his chamber door', next: () => talk_edmund_locked, available: (s) => (s.has('edmund_chamber_locked') || s.actions >= 12) },
-    { label: 'Clara — in the morning room', next: () => talk_clara_1, available: (s) => (s.actions < 7 && !s.has('clara_closed')) },
-    { label: 'Clara — by the fountain in the garden', next: () => talk_clara_garden, available: (s) => ((s.actions >= 7 && s.actions <= 10) && !s.has('clara_closed')) },
-    { label: 'Clara — Knock at her bedroom door', next: () => event_clara_locked_door, available: (s) => (s.actions >= 11 && !s.has('clara_closed')) },
+    { label: 'Edmund — in the smoking room', next: () => talk_edmund_1, available: (s) => s.actions < 14 },
+    { label: 'Edmund — Set the evidence before him', next: () => talk_edmund_2, available: (s) => (s.has('knows_method') && s.has('knows_motive') && s.actions < 14) },
+    { label: 'Edmund — Knock at his chamber door', next: () => talk_edmund_locked, available: (s) => (s.has('edmund_chamber_locked') || s.actions >= 14) },
+    { label: 'Clara — in the morning room', next: () => talk_clara_1, available: (s) => (s.actions < 8 && !s.has('clara_closed')) },
+    { label: 'Clara — by the fountain in the garden', next: () => talk_clara_garden, available: (s) => ((s.actions >= 8 && s.actions <= 11) && !s.has('clara_closed')) },
+    { label: 'Clara — Knock at her bedroom door', next: () => event_clara_locked_door, available: (s) => (s.actions >= 12 && !s.has('clara_closed')) },
     { label: 'Clara — Try the morning room again', next: () => talk_clara_closed, available: (s) => s.has('clara_closed') },
-    { label: 'Miss Blake — In her small parlour', next: () => talk_agnes_1, available: (s) => s.actions < 6 },
-    { label: 'Miss Blake — packing in her room', next: () => talk_agnes_packing, available: (s) => s.actions >= 6 },
+    { label: 'Miss Blake — In her small parlour', next: () => talk_agnes_1, available: (s) => s.actions < 7 },
+    { label: 'Miss Blake — packing in her room', next: () => talk_agnes_packing, available: (s) => s.actions >= 7 },
     { label: 'Miss Blake — Ask her to witness in the drawing room', next: () => talk_agnes_help, available: (s) => (s.trustOf('agnes') >= 2 && s.has('clara_defends_agnes')) },
-    { label: 'Doctor Crowe — in the small parlour with the body', next: () => talk_doctor_1, available: (s) => s.actions < 7 },
-    { label: 'Doctor Crowe — in the small parlour', next: () => talk_doctor_away, available: (s) => (s.actions >= 7 && s.actions <= 12) },
-    { label: 'Doctor Crowe — in the library on his return', next: () => talk_doctor_2, available: (s) => (s.actions >= 13 && s.has('doctor_pressured_by_edmund')) },
-    { label: 'Thomas — On the landing chair outside Edmund\'s door', next: () => talk_thomas_1, available: (s) => (s.actions < 13 && !s.has('thomas_broke') && !s.has('thomas_dead')) },
-    { label: 'Thomas — In the kitchen', next: () => talk_thomas_kitchen, available: (s) => (s.actions >= 13 && !s.has('thomas_dead') && !s.has('thomas_broke')) },
+    { label: 'Doctor Crowe — in the small parlour with the body', next: () => talk_doctor_1, available: (s) => s.actions < 8 },
+    { label: 'Doctor Crowe — in the small parlour', next: () => talk_doctor_away, available: (s) => (s.actions >= 8 && s.actions <= 14) },
+    { label: 'Doctor Crowe — in the library on his return', next: () => talk_doctor_2, available: (s) => (s.actions >= 14 && s.has('doctor_pressured_by_edmund')) },
+    { label: 'Thomas — On the landing chair outside Edmund\'s door', next: () => talk_thomas_1, available: (s) => (s.actions < 15 && !s.has('thomas_broke') && !s.has('thomas_dead')) },
+    { label: 'Thomas — In the kitchen', next: () => talk_thomas_kitchen, available: (s) => (s.actions >= 15 && !s.has('thomas_dead') && !s.has('thomas_broke')) },
     { label: 'Gather the household in the drawing room', next: () => final_gathering, available: (s) => s.evidenceCount() >= 2 },
   ],
 });

@@ -19,7 +19,7 @@ export function TopBar() {
   const itemCount = items.size;
   const trustChanges = Object.keys(trust).length;
   const time = actionToTime(actions);
-  const isCritical = actions >= 12;
+  const isCritical = actions >= 15;
 
   return (
     <div

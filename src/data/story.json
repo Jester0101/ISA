@@ -623,33 +623,23 @@
       "choices": [
         {
           "label": "Edmund Harrow",
-          "next": "accuse_edmund",
-          "requires": "evidence_count >= 2",
-          "lock_hint": "Not enough on him to make the case."
+          "next": "accuse_edmund"
         },
         {
           "label": "Clara Harrow",
-          "next": "accuse_clara",
-          "requires": "love_letter",
-          "lock_hint": "I have nothing to lay at her door."
+          "next": "accuse_clara"
         },
         {
           "label": "Miss Blake",
-          "next": "accuse_agnes",
-          "requires": "cold_letter",
-          "lock_hint": "I have nothing to lay at her door."
+          "next": "accuse_agnes"
         },
         {
           "label": "Sir Henry",
-          "next": "accuse_henry",
-          "requires": "henry_admits_doubt",
-          "lock_hint": "There is no case to put to the master of the house."
+          "next": "accuse_henry"
         },
         {
           "label": "Doctor Crowe",
-          "next": "accuse_doctor",
-          "requires": "doctor_pressured_by_edmund",
-          "lock_hint": "I know nothing that would hold against the doctor."
+          "next": "accuse_doctor"
         },
         {
           "label": "Give no name",
@@ -709,12 +699,12 @@
         {
           "label": "Find him in the library",
           "next": "talk_henry_1",
-          "requires": "actions < 9"
+          "requires": "actions < 10"
         },
         {
           "label": "Sit at luncheon with him in the dining room",
           "next": "talk_henry_dining",
-          "requires": "9 <= actions <= 12"
+          "requires": "10 <= actions <= 14"
         },
         {
           "label": "Return to him with the evidence",
@@ -724,32 +714,32 @@
         {
           "label": "Find him in the smoking room",
           "next": "talk_edmund_1",
-          "requires": "actions < 12"
+          "requires": "actions < 14"
         },
         {
           "label": "Set the evidence before him",
           "next": "talk_edmund_2",
-          "requires": "knows_method AND knows_motive AND actions < 12"
+          "requires": "knows_method AND knows_motive AND actions < 14"
         },
         {
           "label": "Knock at his chamber door",
           "next": "talk_edmund_locked",
-          "requires": "edmund_chamber_locked OR actions >= 12"
+          "requires": "edmund_chamber_locked OR actions >= 14"
         },
         {
           "label": "Find her in the morning room",
           "next": "talk_clara_1",
-          "requires": "actions < 7 AND NOT clara_closed"
+          "requires": "actions < 8 AND NOT clara_closed"
         },
         {
           "label": "Find her by the fountain in the garden",
           "next": "talk_clara_garden",
-          "requires": "7 <= actions <= 10 AND NOT clara_closed"
+          "requires": "8 <= actions <= 11 AND NOT clara_closed"
         },
         {
           "label": "Knock at her bedroom door",
           "next": "event_clara_locked_door",
-          "requires": "actions >= 11 AND NOT clara_closed"
+          "requires": "actions >= 12 AND NOT clara_closed"
         },
         {
           "label": "Try the morning room again",
@@ -759,12 +749,12 @@
         {
           "label": "In her small parlour",
           "next": "talk_agnes_1",
-          "requires": "actions < 6"
+          "requires": "actions < 7"
         },
         {
           "label": "Find her packing in her room",
           "next": "talk_agnes_packing",
-          "requires": "actions >= 6"
+          "requires": "actions >= 7"
         },
         {
           "label": "Ask her to witness in the drawing room",
@@ -774,27 +764,27 @@
         {
           "label": "Find him in the small parlour with the body",
           "next": "talk_doctor_1",
-          "requires": "actions < 7"
+          "requires": "actions < 8"
         },
         {
           "label": "Look for him in the small parlour",
           "next": "talk_doctor_away",
-          "requires": "7 <= actions <= 12"
+          "requires": "8 <= actions <= 14"
         },
         {
           "label": "Find him in the library on his return",
           "next": "talk_doctor_2",
-          "requires": "actions >= 13 AND doctor_pressured_by_edmund"
+          "requires": "actions >= 14 AND doctor_pressured_by_edmund"
         },
         {
           "label": "On the landing chair outside Edmund's door",
           "next": "talk_thomas_1",
-          "requires": "actions < 13 AND NOT thomas_broke AND NOT thomas_dead"
+          "requires": "actions < 15 AND NOT thomas_broke AND NOT thomas_dead"
         },
         {
           "label": "In the kitchen",
           "next": "talk_thomas_kitchen",
-          "requires": "actions >= 13 AND NOT thomas_dead AND NOT thomas_broke"
+          "requires": "actions >= 15 AND NOT thomas_dead AND NOT thomas_broke"
         },
         {
           "label": "Gather the household in the drawing room",
